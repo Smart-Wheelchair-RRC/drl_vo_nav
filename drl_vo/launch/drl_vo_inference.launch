@@ -4,9 +4,9 @@
   <include file="$(find turtlebot_teleop)/launch/includes/velocity_smoother.launch.xml"/>
 
   <!-- DRL-VO publisher -->
-  <node name="drl_vo_cmd" pkg="drl_vo_nav" type="drl_vo_inference.py" output="screen">
+  <!-- <node name="drl_vo_cmd" pkg="drl_vo_nav" type="drl_vo_inference.py" output="screen">
     <param name="model_file" value="$(arg model_file)" type="string"/>
-  </node>
+  </node> -->
 
   <!-- Mix cmd vel publisher -->
   <node name="mix_cmd_vel" pkg="drl_vo_nav" type="cmd_vel_pub.py" output="screen" >

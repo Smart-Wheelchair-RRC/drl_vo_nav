@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # revision history: xzt
 #  20210604 (TE): first version
@@ -6,7 +6,7 @@
 # usage:
 #
 # This script is to publish the robot pose.
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 import rospy
 import geometry_msgs.msg
@@ -16,24 +16,25 @@ from geometry_msgs.msg import Point
 
 import numpy as np
 
+
 def robot_pose_pub():
-    rospy.init_node('robot_pose', anonymous=True)
+    rospy.init_node("robot_pose", anonymous=True)
     tf_listener = tf.TransformListener()
-    robot_pose_pub = rospy.Publisher('/robot_pose', PoseStamped, queue_size=1)
-    rate = rospy.Rate(30) # 10hz
+    robot_pose_pub = rospy.Publisher("/robot_pose", PoseStamped, queue_size=1)
+    rate = rospy.Rate(30)  # 10hz
     while not rospy.is_shutdown():
         trans = rot = None
         # look up the current pose of the base_footprint using the tf tree
         try:
-            (trans,rot) = tf_listener.lookupTransform('/map', '/base_footprint', rospy.Time(0))
+            (trans, rot) = tf_listener.lookupTransform("/map", "/base_footprint", rospy.Time(0))
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            rospy.logwarn('Could not get robot pose')
-            trans = list([-1,-1,-1])
-            rot = list([-1,-1,-1,-1])
+            rospy.logwarn("Could not get robot pose")
+            trans = list([-1, -1, -1])
+            rot = list([-1, -1, -1, -1])
         # publish robot pose:
         rob_pos = PoseStamped()
         rob_pos.header.stamp = rospy.Time.now()
-        rob_pos.header.frame_id = '/map'
+        rob_pos.header.frame_id = "/map"
         rob_pos.pose.position.x = trans[0]
         rob_pos.pose.position.y = trans[1]
         rob_pos.pose.position.z = trans[2]
@@ -45,7 +46,8 @@ def robot_pose_pub():
 
         rate.sleep()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     try:
         robot_pose_pub()
     except rospy.ROSInterruptException:

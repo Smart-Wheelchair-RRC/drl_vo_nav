@@ -1,0 +1,4 @@
+Metrics for the Current Run
+1. Average Speed: 0.2995740207824988 m/s
+2. Total Distance Travelled: 14.766065065447142 m
+3. Number of Collisions: 1 (collisions in 0.5m around robot)
